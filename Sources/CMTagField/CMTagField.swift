@@ -5,7 +5,9 @@ public struct CMTagField : View{
     @State public var prefix: String = ""
     @State private var newTag: String = ""
     @State var color: Color = .blue
-    var placeholder: String = ""
+    private var isMultiline: Bool = false
+    private var placeholder: String = ""
+    
     
     public var body: some View {
         ScrollViewReader { scrollView in
@@ -32,21 +34,24 @@ public struct CMTagField : View{
                         }.background(color.opacity(0.1).cornerRadius(.infinity))
                         .id(tag)
                     }
+                    
                     TextField(placeholder, text: $newTag)
                         .onChange(of: newTag) { change in
                             if(change.isContainSpaceAndNewlines()) {
                                 appendNewTag()
-                                withAnimation() {
-                                    scrollView.scrollTo("TextField", anchor: .center)
-                                }
-                                
                             }
+                            withAnimation(Animation.easeOut(duration: 0).delay(1)) {
+                                scrollView.scrollTo("TextField", anchor: .trailing)
+                            }
+                            
                         }
+                        .fixedSize()
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
                         .accentColor(color)
                         .id("TextField")
-                }
+                        .padding(.trailing)
+                }.padding()
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
@@ -56,9 +61,9 @@ public struct CMTagField : View{
         
     }
     func appendNewTag() {
-        let tag = newTag
-        print(tag)
-        if(!isOverlap(tag: tag)) {
+        var tag = newTag
+        tag.removeLast()
+        if(!isOverlap(tag: tag) && !isBlank(tag: tag)) {
             withAnimation() {
                 tags.append(tag)
             }
@@ -73,21 +78,41 @@ public struct CMTagField : View{
             return false
         }
     }
+    func isBlank(tag: String) -> Bool {
+        if(tag == "") {
+            return true
+        }
+        else {
+            return false
+        }
+    }
     public init(tags: Binding<[String]>, placeholder: String) {
         self._tags = tags
         self.placeholder = placeholder
     }
     
-    public init(tags: Binding<[String]>, prefix: String, placeholder: String, color: Color) {
+    public init(tags: Binding<[String]>, prefix: String, placeholder: String, color: Color, multiline: Bool) {
         self._tags = tags
         self.prefix = prefix
         self.placeholder = placeholder
         self._color = .init(initialValue: color)
+        self.isMultiline = multiline
     }
 }
 
 public extension CMTagField {
     func accentColor(_ color: Color) -> CMTagField {
-        CMTagField(tags: self.$tags, prefix: self.prefix, placeholder: self.placeholder, color: color)
+        CMTagField(tags: self.$tags,
+                   prefix: self.prefix,
+                   placeholder: self.placeholder,
+                   color: color,
+                   multiline: self.isMultiline)
+    }
+    func multiline(_ bool: Bool) -> CMTagField {
+        CMTagField(tags: self.$tags,
+                   prefix: self.prefix,
+                   placeholder: self.placeholder,
+                   color: self.color,
+                   multiline: bool)
     }
 }
