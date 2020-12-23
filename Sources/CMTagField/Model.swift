@@ -7,6 +7,12 @@
 
 import Foundation
 
+public enum CMTagFieldStyle {
+    case RoundedBorder
+    case Modern
+    case Multilined
+}
+
 extension String {
     func isContainSpaceAndNewlines() -> Bool {
         return rangeOfCharacter(from: .whitespacesAndNewlines) != nil
