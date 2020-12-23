@@ -2,10 +2,10 @@ import SwiftUI
 
 public struct CMTagField : View{
     @Binding public var tags: [String]
-    @State public var prefix: String = ""
     @State private var newTag: String = ""
     @State var color: Color = .blue
     private var placeholder: String = ""
+    private var prefix: String = ""
     private var style: CMTagFieldStyle = .RoundedBorder
     
     public var body: some View {
