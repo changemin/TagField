@@ -94,7 +94,8 @@ public struct CMTagField : View{
         }
     }
     func isBlank(tag: String) -> Bool {
-        if(tag == "") {
+        let tmp = tag.trimmingCharacters(in: .whitespaces)
+        if(tmp == "") {
             return true
         }
         else {
