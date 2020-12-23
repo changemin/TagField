@@ -7,6 +7,7 @@ public struct CMTagField : View{
     private var placeholder: String = ""
     private var prefix: String = ""
     private var style: CMTagFieldStyle = .RoundedBorder
+    private var lowercase: Bool = true
     
     public var body: some View {
         VStack(spacing: 0){
@@ -32,11 +33,11 @@ public struct CMTagField : View{
                                         .padding([.trailing], 10)
                                 }
                             }.background(color.opacity(0.1).cornerRadius(.infinity))
-                            
-                            .id(tag)
                         }
                         
-                        TextField(placeholder, text: $newTag)
+                        TextField(placeholder, text: $newTag, onEditingChanged: { _ in
+                            appendNewTag()
+                        })
                             .onChange(of: newTag) { change in
                                 if(change.isContainSpaceAndNewlines()) {
                                     appendNewTag()
@@ -70,12 +71,18 @@ public struct CMTagField : View{
     }
     func appendNewTag() {
         var tag = newTag
-        tag.removeLast()
-        if(!isOverlap(tag: tag) && !isBlank(tag: tag)) {
-            withAnimation() {
-                tags.append(tag)
+        if(!isBlank(tag: tag)) {
+            tag.removeLast()
+            if(!isOverlap(tag: tag)) {
+                if(lowercase) {
+                    tag = tag.lowercased()
+                }
+                withAnimation() {
+                    tags.append(tag)
+                }
             }
         }
+        
         newTag.removeAll()
     }
     func isOverlap(tag: String) -> Bool {
@@ -105,12 +112,13 @@ public struct CMTagField : View{
         self.prefix = prefix
     }
     
-    public init(tags: Binding<[String]>, prefix: String, placeholder: String, color: Color, style: CMTagFieldStyle) {
+    public init(tags: Binding<[String]>, prefix: String, placeholder: String, color: Color, style: CMTagFieldStyle, lowercase: Bool) {
         self._tags = tags
         self.prefix = prefix
         self.placeholder = placeholder
         self._color = .init(initialValue: color)
         self.style = style
+        self.lowercase = lowercase
     }
 }
 
@@ -120,13 +128,23 @@ public extension CMTagField {
                    prefix: self.prefix,
                    placeholder: self.placeholder,
                    color: color,
-                   style: self.style)
+                   style: self.style,
+                   lowercase: self.lowercase)
     }
     func styled(_ style: CMTagFieldStyle) -> CMTagField {
         CMTagField(tags: self.$tags,
                    prefix: self.prefix,
                    placeholder: self.placeholder,
                    color: self.color,
-                   style: style)
+                   style: style,
+                   lowercase: self.lowercase)
+    }
+    func downcase(_ bool: Bool) -> CMTagField {
+        CMTagField(tags: self.$tags,
+                   prefix: self.prefix,
+                   placeholder: self.placeholder,
+                   color: self.color,
+                   style: self.style,
+                   lowercase: bool)
     }
 }
