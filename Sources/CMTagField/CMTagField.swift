@@ -36,15 +36,18 @@ public struct CMTagField : View{
                         .onChange(of: newTag) { change in
                             if(change.isContainSpaceAndNewlines()) {
                                 appendNewTag()
-                                scrollView.scrollTo("textField")
+                                withAnimation() {
+                                    scrollView.scrollTo("TextField", anchor: .center)
+                                }
+                                
                             }
                         }
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
                         .accentColor(color)
-                        .id("textField")
+                        .id("TextField")
                 }
-            }.padding()
+            }
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
                     .stroke(Color.gray, lineWidth: 0.75)
@@ -55,20 +58,36 @@ public struct CMTagField : View{
     func appendNewTag() {
         let tag = newTag
         print(tag)
-        withAnimation() {
-            tags.append(tag)
+        if(!isOverlap(tag: tag)) {
+            withAnimation() {
+                tags.append(tag)
+            }
         }
         newTag.removeAll()
-        
+    }
+    func isOverlap(tag: String) -> Bool {
+        if(tags.contains(tag)) {
+            return true
+        }
+        else {
+            return false
+        }
     }
     public init(tags: Binding<[String]>, placeholder: String) {
         self._tags = tags
         self.placeholder = placeholder
     }
     
-    public init(tags: Binding<[String]>, prefix: String, placeholder: String) {
+    public init(tags: Binding<[String]>, prefix: String, placeholder: String, color: Color) {
         self._tags = tags
         self.prefix = prefix
         self.placeholder = placeholder
+        self._color = .init(initialValue: color)
+    }
+}
+
+public extension CMTagField {
+    func accentColor(_ color: Color) -> CMTagField {
+        CMTagField(tags: self.$tags, prefix: self.prefix, placeholder: self.placeholder, color: color)
     }
 }
