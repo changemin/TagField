@@ -37,6 +37,8 @@ public struct CMTagField : View{
                         
                         TextField(placeholder, text: $newTag, onEditingChanged: { _ in
                             appendNewTag()
+                        }, onCommit: {
+                            appendNewTag()
                         })
                             .onChange(of: newTag) { change in
                                 if(change.isContainSpaceAndNewlines()) {
@@ -72,17 +74,28 @@ public struct CMTagField : View{
     func appendNewTag() {
         var tag = newTag
         if(!isBlank(tag: tag)) {
-            tag.removeLast()
-            if(!isOverlap(tag: tag)) {
-                if(lowercase) {
-                    tag = tag.lowercased()
+            if(tag.last == " ") {
+                tag.removeLast()
+                if(!isOverlap(tag: tag)) {
+                    if(lowercase) {
+                        tag = tag.lowercased()
+                    }
+                    withAnimation() {
+                        tags.append(tag)
+                    }
                 }
-                withAnimation() {
-                    tags.append(tag)
+            }
+            else {
+                if(!isOverlap(tag: tag)) {
+                    if(lowercase) {
+                        tag = tag.lowercased()
+                    }
+                    withAnimation() {
+                        tags.append(tag)
+                    }
                 }
             }
         }
-        
         newTag.removeAll()
     }
     func isOverlap(tag: String) -> Bool {
