@@ -7,7 +7,7 @@ public struct CMTagField : View{
     private var placeholder: String = ""
     private var prefix: String = ""
     private var style: CMTagFieldStyle = .RoundedBorder
-    private var lowercase: Bool = true
+    private var lowercase: Bool = false
     
     public var body: some View {
         VStack(spacing: 0){
@@ -125,7 +125,7 @@ public struct CMTagField : View{
         self.prefix = prefix
     }
     
-    public init(tags: Binding<[String]>, prefix: String, placeholder: String, color: Color, style: CMTagFieldStyle, lowercase: Bool) {
+    public init(tags: Binding<[String]>, placeholder: String, prefix: String, color: Color, style: CMTagFieldStyle, lowercase: Bool) {
         self._tags = tags
         self.prefix = prefix
         self.placeholder = placeholder
@@ -135,27 +135,25 @@ public struct CMTagField : View{
     }
 }
 
-public extension CMTagField {
-    func accentColor(_ color: Color) -> CMTagField {
+extension CMTagField {
+    public func accentColor(_ color: Color) -> CMTagField {
         CMTagField(tags: self.$tags,
-                   prefix: self.prefix,
-                   placeholder: self.placeholder,
+                   placeholder: self.placeholder, prefix: self.prefix,
                    color: color,
                    style: self.style,
                    lowercase: self.lowercase)
     }
-    func styled(_ style: CMTagFieldStyle) -> CMTagField {
+    public func styled(_ style: CMTagFieldStyle) -> CMTagField {
         CMTagField(tags: self.$tags,
-                   prefix: self.prefix,
-                   placeholder: self.placeholder,
+                   placeholder: self.placeholder, prefix: self.prefix,
                    color: self.color,
                    style: style,
                    lowercase: self.lowercase)
     }
-    func lowercase(_ bool: Bool) -> CMTagField {
+    public func lowercase(_ bool: Bool) -> CMTagField {
         CMTagField(tags: self.$tags,
-                   prefix: self.prefix,
                    placeholder: self.placeholder,
+                   prefix: self.prefix,
                    color: self.color,
                    style: self.style,
                    lowercase: bool)
