@@ -3,7 +3,7 @@ import SwiftUI
 public struct CMTagField : View{
     @Binding public var tags: [String]
     @State private var newTag: String = ""
-    @State var color: Color = .blue
+    @State var color: Color = Color(.sRGB, red: 50/255, green: 200/255, blue: 165/255)
     private var placeholder: String = ""
     private var prefix: String = ""
     private var style: CMTagFieldStyle = .RoundedBorder
@@ -34,7 +34,6 @@ public struct CMTagField : View{
                                 }
                             }.background(color.opacity(0.1).cornerRadius(.infinity))
                         }
-                        
                         TextField(placeholder, text: $newTag, onEditingChanged: { _ in
                             appendNewTag()
                         }, onCommit: {
@@ -59,10 +58,10 @@ public struct CMTagField : View{
                 }
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.gray, lineWidth: style == .RoundedBorder ? 0.75 : 0)
+                        .stroke(color, lineWidth: style == .RoundedBorder ? 0.75 : 0)
                 )
             }.background(
-                color.opacity(style == .Modern ? 0.07 : 0)
+                Color.gray.opacity(style == .Modern ? 0.07 : 0)
             )
             if(style == .Modern) {
                 color.frame(height: 2).cornerRadius(1)
@@ -153,7 +152,7 @@ public extension CMTagField {
                    style: style,
                    lowercase: self.lowercase)
     }
-    func downcase(_ bool: Bool) -> CMTagField {
+    func lowercase(_ bool: Bool) -> CMTagField {
         CMTagField(tags: self.$tags,
                    prefix: self.prefix,
                    placeholder: self.placeholder,
