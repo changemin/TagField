@@ -110,4 +110,4 @@ CMTagField is available under the MIT license. See the `LICENSE` file for more i
 
 ## ✍️ Author
 
-- [🇰🇷@Changemin](https://github.com/kylelobo)
+- Byun Kyung Min ➜ [🇰🇷@Changemin](https://github.com/Changemin)
