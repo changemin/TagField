@@ -1,12 +1,22 @@
 import SwiftUI
 
-public struct CMTagField : View{
+/**
+ TagField is an input textfield for SwiftUI that can contain tag data
+ 
+ # Example #
+ ```
+ var tags:[String] = []
+ 
+ TagField(tags: $tags, placeholder: "Add Tags..", prefix: "#")
+ ```
+ */
+public struct TagField : View{
     @Binding public var tags: [String]
     @State private var newTag: String = ""
     @State var color: Color = Color(.sRGB, red: 50/255, green: 200/255, blue: 165/255)
     private var placeholder: String = ""
     private var prefix: String = ""
-    private var style: CMTagFieldStyle = .RoundedBorder
+    private var style: TagFieldStyle = .RoundedBorder
     private var lowercase: Bool = false
     
     public var body: some View {
@@ -125,7 +135,7 @@ public struct CMTagField : View{
         self.prefix = prefix
     }
     
-    public init(tags: Binding<[String]>, placeholder: String, prefix: String, color: Color, style: CMTagFieldStyle, lowercase: Bool) {
+    public init(tags: Binding<[String]>, placeholder: String, prefix: String, color: Color, style: TagFieldStyle, lowercase: Bool) {
         self._tags = tags
         self.prefix = prefix
         self.placeholder = placeholder
@@ -135,23 +145,23 @@ public struct CMTagField : View{
     }
 }
 
-extension CMTagField {
-    public func accentColor(_ color: Color) -> CMTagField {
-        CMTagField(tags: self.$tags,
+extension TagField {
+    public func accentColor(_ color: Color) -> TagField {
+        TagField(tags: self.$tags,
                    placeholder: self.placeholder, prefix: self.prefix,
                    color: color,
                    style: self.style,
                    lowercase: self.lowercase)
     }
-    public func styled(_ style: CMTagFieldStyle) -> CMTagField {
-        CMTagField(tags: self.$tags,
+    public func styled(_ style: TagFieldStyle) -> TagField {
+        TagField(tags: self.$tags,
                    placeholder: self.placeholder, prefix: self.prefix,
                    color: self.color,
                    style: style,
                    lowercase: self.lowercase)
     }
-    public func lowercase(_ bool: Bool) -> CMTagField {
-        CMTagField(tags: self.$tags,
+    public func lowercase(_ bool: Bool) -> TagField {
+        TagField(tags: self.$tags,
                    placeholder: self.placeholder,
                    prefix: self.prefix,
                    color: self.color,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum CMTagFieldStyle {
+public enum TagFieldStyle {
     case RoundedBorder
     case Modern
     case Multilined
