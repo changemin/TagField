@@ -1,9 +1,9 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=300px  src="src/main.png" alt="Project logo"></a>
+ <img width=300px  src="imgs/main.gif"></a>
 </p>
 
-<h3 align="center">🏷 TagField 🏷</h3>
+<h3 align="center">🏷 SwiftUI TagField 🏷</h3>
 
 <div align="center">
 
@@ -17,7 +17,7 @@
 ## 📹 Preview
 
 <p align="center">
-    <img src="src/appVideo.gif" width="40%" />
+    <img src="imgs/appVideo.gif" width="40%" />
 </p>
 
 ## 🏁 Getting Started
@@ -74,8 +74,8 @@ struct ContentView: View {
 ```
 #### Result
 <p float="left">
-    <img src="src/Example-simple-1.png" width="25%">
-    <img src="src/Example-simple-2.png" width="25%">
+    <img src="imgs/Example-simple-1.png" width="25%">
+    <img src="imgs/Example-simple-2.png" width="25%">
 </p>
 
 ### Styling
@@ -97,8 +97,8 @@ struct ContentView: View {
 
 ### Result
 <p float="left">
-    <img src="src/Example-styling-1.png" width="25%">
-    <img src="src/Example-styling-2.png" width="25%">
+    <img src="imgs/Example-styling-1.png" width="25%">
+    <img src="imgs/Example-styling-2.png" width="25%">
 </p>
 
 ## ✅ TODO
