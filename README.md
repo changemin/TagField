@@ -3,12 +3,12 @@
  <img width=300px  src="src/main.png" alt="Project logo"></a>
 </p>
 
-<h3 align="center">🏷 CMTagField 🏷</h3>
+<h3 align="center">🏷 TagField 🏷</h3>
 
 <div align="center">
 
-![License](https://img.shields.io/github/license/CM-Material/CMFloatingTextField?style=for-the-badge)
-![Release](https://img.shields.io/github/v/release/CM-Material/CMTagField?style=for-the-badge)
+![License](https://img.shields.io/github/license/Changemin/TagField?style=for-the-badge)
+![Release](https://img.shields.io/github/v/release/Changemin/TagField?style=for-the-badge)
 
 </div>
 
@@ -33,26 +33,26 @@
     File ➜ Swift Packages ➜ Add Package Dependancy..
 
 ```Swift
-.package(url: "https://github.com/CM-Material/CMTagField", from: "1.0.1")
+.package(url: "https://github.com/Changemin/TagField", from: "1.1.0")
 ```
 
 ## 🎈Usage
 ```Swift
-CMTagField(tags: $tags, placeholder: "Add Tags..")
-CMTagField(tags: $tags, placeholder: "Add Tags..", prefix: "#")
-CMTagField(tags: $tags, placeholder: "Add Tags..", prefix: "#", color: color, style: .Modern, lowercase: bool)
+TagField(tags: $tags, placeholder: "Add Tags..")
+TagField(tags: $tags, placeholder: "Add Tags..", prefix: "#")
+TagField(tags: $tags, placeholder: "Add Tags..", prefix: "#", color: color, style: .Modern, lowercase: bool)
 ```
 * `tags` : `Binding<String>` that stores tags data
 * `placeholder`: placeholder text before add tags
 * `prefix` : prefix attached to each tags
 * `color` : accentColor
-* `style` : `CMTagFieldStyle` ➜ `.Modern`, `.RoundedBorder`, `.Multilined`
+* `style` : `TagFieldStyle` ➜ `.Modern`, `.RoundedBorder`, `.Multilined`
 
 #### 🛠Custom Modifiers
 ```Swift
-CMTagField(tags: $tags, placeholder: "Add Tags..")
+TagField(tags: $tags, placeholder: "Add Tags..")
     .accentColor(color)
-    .styled(CMTagFieldStyle)
+    .styled(TagFieldStyle)
     .lowercase(Bool)
 ```
 * `.accentColor()` : Accent color
@@ -61,13 +61,13 @@ CMTagField(tags: $tags, placeholder: "Add Tags..")
 ## Example
 #### 👶 Simple
 ```Swift
-import CMTagField
+import TagField
 
 struct ContentView: View {
     @State var tags: [String] = []
     
     var body: some View {
-        CMTagField(tags: $tags, placeholder: "Add Tags..")
+        TagField(tags: $tags, placeholder: "Add Tags..")
             .padding()
     }
 }
@@ -80,13 +80,13 @@ struct ContentView: View {
 
 ### Styling
 ```Swift
-import CMTagField
+import TagField
 
 struct ContentView: View {
     @State var tags: [String] = []
     
     var body: some View {
-        CMTagField(tags: $tags, placeholder: "Add Tags..", prefix: "#")
+        TagField(tags: $tags, placeholder: "Add Tags..", prefix: "#")
             .styled(.Modern)
             .accentColor(.red)
             .lowercase(true)
@@ -106,7 +106,7 @@ struct ContentView: View {
 
 ## 📜 License
 
-CMTagField is available under the MIT license. See the `LICENSE` file for more info.
+TagField is available under the MIT license. See the `LICENSE` file for more info.
 
 ## ✍️ Author
 
